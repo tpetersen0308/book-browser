@@ -10,5 +10,7 @@ export function fetchBooks() {
 }
 
 export function fetchBooksRequest() {
-
+  return {
+    type: 'FETCH_BOOKS_REQUEST',
+  }
 }
