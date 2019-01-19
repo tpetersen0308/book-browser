@@ -13,16 +13,7 @@ describe('addBooks()', () => {
       }
     ]
     const expectedAction = {
-      payload: [
-        {
-          title: "Blood Meridian",
-          author: "Cormac McCarthy",
-        },
-        {
-          title: "The Windup Girl",
-          author: "Paolo Bacigalupi"
-        }
-      ],
+      payload: books,
       type: "ADD_BOOKS",
     }
     expect(addBooks(books)).toEqual(expectedAction);
