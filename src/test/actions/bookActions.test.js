@@ -32,7 +32,8 @@ describe('fetchBooks()', () => {
   })
 
   it('creates ADD_BOOKS action when fetching books is done', () => {
-    fetchMock.getOnce('/https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)', 200);
+    fetchMock.getOnce('https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)', 200)
+      .catch(error => console.log(error));
 
     const bookResults = {
       "items": [
@@ -140,7 +141,7 @@ describe('fetchBooks()', () => {
 
     const store = mockStore({ books: [] });
 
-    return store.dispatch(fetchBooks()).then(() => {
+    return store.dispatch(fetchBooks(['windup', 'girl'])).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
