@@ -26,29 +26,22 @@ describe('addBooks()', () => {
   })
 })
 
-describe('fetchBooks()', () => {
-  it('creates ADD_BOOKS action when fetching books is done', () => {
-    fetch('https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)')
-      .then(data => {
-        data.json();
-      })
-      .then(json => {
-        const bookResults = json;
-        const expectedActions = [
-          {
-            type: 'FETCH_BOOKS_REQUEST'
-          },
-          {
-            payload: bookResults.items,
-            type: 'ADD_BOOKS'
-          }
-        ];
+test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async () => {
+  const bookResults = await fetch('https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&orderBy=relevance&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)').then(data => data.json())
 
-        const store = mockStore({ books: [] });
+  const expectedActions = [
+    {
+      type: 'FETCH_BOOKS_REQUEST'
+    },
+    {
+      payload: bookResults.items,
+      type: 'ADD_BOOKS'
+    }
+  ];
 
-        return store.dispatch(fetchBooks(['windup', 'girl'])).then(() => {
-          expect(store.getActions()).toEqual(expectedActions)
-        })
-      })
+  const store = mockStore({ books: [] });
+
+  return store.dispatch(fetchBooks(['windup', 'girl'])).then(() => {
+    expect(store.getActions()).toEqual(expectedActions)
   })
 })
