@@ -5,11 +5,11 @@ import Search from '../../components/Search';
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe("<Search />", () => {
+describe("search input", () => {
   it("should save the search terms in state when the input changes", () => {
     const wrapper = shallow(<Search />);
 
-    wrapper.find("#search-input").first().simulate("change", {
+    wrapper.find("#search-input").simulate("change", {
       target: { id: "search-input", value: "Persepolis Rising" }
     });
 
