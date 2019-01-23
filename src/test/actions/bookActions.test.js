@@ -27,7 +27,7 @@ describe('addBooks()', () => {
 })
 
 test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async () => {
-  const bookResults = await fetch('https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&orderBy=relevance&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)').then(data => data.json())
+  const bookResults = await fetch('https://www.googleapis.com/books/v1/volumes?q=windup+girl+intitle&fields=items(volumeInfo/title,volumeInfo/authors, volumeInfo/description)').then(data => data.json())
 
   const expectedActions = [
     {
