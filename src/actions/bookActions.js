@@ -10,7 +10,7 @@ export function addBooks(books) {
 export function fetchBooks(searchTerms) {
   return dispatch => {
     dispatch(fetchBooksRequest());
-    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms.join('+')}+intitle&fields=items(volumeInfo/title, volumeInfo/authors, volumeInfo/description)`)
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle+${searchTerms.join('+')}&orderBy=relevance&fields=kind,items(volumeInfo/title,volumeInfo/authors,volumeInfo/publisher,volumeInfo/imageLinks/thumbnail,volumeInfo/infoLink)`)
       .then(data => data.json())
       .then(json => {
         dispatch(addBooks(json.items))
