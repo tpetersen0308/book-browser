@@ -35,6 +35,15 @@ describe("formatQueryParams()", () => {
     }
     expect(formatQueryParams(searchTerms)).toEqual(expectedParams);
   })
+
+  it("does not add title params if title search term is empty", () => {
+    let expectedParams = "paolo+bacigalupi+inauthor";
+    let searchTerms = {
+      title: "",
+      author: "paolo bacigalupi",
+    }
+    expect(formatQueryParams(searchTerms)).toEqual(expectedParams);
+  })
 })
 
 test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async () => {
