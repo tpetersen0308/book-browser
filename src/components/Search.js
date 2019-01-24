@@ -26,7 +26,7 @@ class Search extends Component {
   }
 
   handleSearchButton = (event) => {
-    store.dispatch(fetchBooks(this.state.searchTerms.split(' ')));
+    store.dispatch(fetchBooks({ title: this.state.titleSearchTerms, author: this.state.authorSearchTerms }));
   }
 
   render() {
