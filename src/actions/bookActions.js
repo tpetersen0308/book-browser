@@ -23,3 +23,14 @@ export function fetchBooksRequest() {
     type: 'FETCH_BOOKS_REQUEST',
   }
 }
+
+export function formatQueryParams(searchTerms) {
+  let queryParams = []
+  if (searchTerms.title.length > 0) {
+    queryParams.push(searchTerms.title.replace(/ /g, "+") + "+intitle");
+  }
+  if (searchTerms.author.length > 0) {
+    queryParams.push(searchTerms.author.replace(/ /g, "+") + "+inauthor");
+  }
+  return queryParams.join("+");
+}
