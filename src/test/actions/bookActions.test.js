@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetch from 'isomorphic-fetch';
-import { addBooks, fetchBooks } from '../../actions/bookActions';
+import { addBooks, fetchBooks, formatQueryParams } from '../../actions/bookActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -23,6 +23,17 @@ describe('addBooks()', () => {
       type: "ADD_BOOKS",
     }
     expect(addBooks(books)).toEqual(expectedAction);
+  })
+})
+
+describe("formatQueryParams()", () => {
+  it("returns a string with the query params properly formatted for querying the Google Books API", () => {
+    let expectedParams = "the+windup+girl+intitle+paolo+bacigalupi+inauthor";
+    let searchTerms = {
+      title: "the windup girl",
+      author: "paolo bacigalupi",
+    }
+    expect(formatQueryParams(searchTerms)).toEqual(expectedParams);
   })
 })
 
