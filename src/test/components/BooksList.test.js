@@ -1,6 +1,5 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import fetch from 'isomorphic-fetch';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { fetchBooks } from '../../actions/bookActions';
@@ -17,7 +16,6 @@ describe("<BooksList />", () => {
     const store = mockStore({ books: [] });
     return store.dispatch(fetchBooks(['the', 'windup', 'girl'])).then(() => {
 
-      console.log(store.getActions()[1].payload)
       const books = store.getActions()[1].payload;
       const wrapper = mount(<BooksList books={books} />);
 
