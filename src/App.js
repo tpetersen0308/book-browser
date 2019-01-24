@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Search from './components/Search';
+import BooksList from './components/BooksList';
 import { PageHeader } from 'react-bootstrap';
 
 class App extends Component {
@@ -14,9 +16,17 @@ class App extends Component {
           <small>Use the search below to browse Google Books</small>
         </PageHeader>
         <Search />
+        <br />
+        <BooksList books={this.props.books} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    books: state.books
+  }
+}
+
+export default connect(mapStateToProps)(App);
