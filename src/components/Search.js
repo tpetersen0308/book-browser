@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { FormControl } from 'react-bootstrap';
+import { FormControl, Button } from 'react-bootstrap';
+import { fetchBooks } from '../actions/bookActions';
+import store from '../store/configureStore'; //importing store because redux connect is crashing test suite
 import './Search.css';
 
 class Search extends Component {
@@ -16,11 +18,17 @@ class Search extends Component {
     });
   }
 
+  handleSearchButton = (event) => {
+    store.dispatch(fetchBooks(this.state.searchTerms.split(' ')));
+  }
+
   render() {
     return (
       <div>
         <form>
           <FormControl id="search-input" onChange={this.handleInputChange} />
+          <br />
+          <Button id="search-button" onClick={this.handleSearchButton}>Search</Button>
         </form>
       </div>
     )
