@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, Button } from 'react-bootstrap';
+import { FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { fetchBooks } from '../actions/bookActions';
 import store from '../store/configureStore'; //importing store because redux connect is crashing test suite
 import './Search.css';
@@ -8,13 +8,20 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      searchTerms: "",
+      titleSearchTerms: "",
+      authorSearchTerms: "",
     }
   }
 
-  handleInputChange = (event) => {
+  handleTitleInputChange = (event) => {
     this.setState({
-      searchTerms: event.target.value,
+      titleSearchTerms: event.target.value,
+    });
+  }
+
+  handleAuthorInputChange = (event) => {
+    this.setState({
+      authorSearchTerms: event.target.value,
     });
   }
 
@@ -25,8 +32,12 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <form>
-          <FormControl id="search-input" onChange={this.handleInputChange} />
+        <form id="search-form">
+          <ControlLabel>Search by Title:</ControlLabel>
+          <FormControl id="title-search-input" onChange={this.handleTitleInputChange} />
+          <br />
+          <ControlLabel>Search by Author:</ControlLabel>
+          <FormControl id="author-search-input" onChange={this.handleAuthorInputChange} />
           <br />
           <Button id="search-button" onClick={this.handleSearchButton}>Search</Button>
         </form>
