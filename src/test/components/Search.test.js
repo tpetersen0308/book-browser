@@ -13,7 +13,7 @@ describe("search input: title", () => {
       target: { id: "search-input", value: "Persepolis Rising" }
     });
 
-    expect(wrapper.state().searchTerms).toEqual("Persepolis Rising");
+    expect(wrapper.state().titleSearchTerms).toEqual("Persepolis Rising");
   })
 })
 
@@ -25,6 +25,6 @@ describe("search input: author", () => {
       target: { id: "search-input", value: "James S. A. Corey" }
     });
 
-    expect(wrapper.state().searchTerms).toEqual("James S. A. Corey");
+    expect(wrapper.state().authorSearchTerms).toEqual("James S. A. Corey");
   })
 })
