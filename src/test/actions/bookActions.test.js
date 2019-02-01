@@ -1,6 +1,5 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import fetch from 'isomorphic-fetch';
 import { addBooks, fetchBooks, formatQueryParams } from '../../actions/bookActions';
 
 const middlewares = [thunk];
@@ -56,21 +55,33 @@ describe("formatQueryParams()", () => {
 })
 
 test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async () => {
-  const bookResults = await fetch('https://www.googleapis.com/books/v1/volumes?q=intitle+the+windup+girl&orderBy=relevance&fields=kind,items(volumeInfo/title,volumeInfo/authors,volumeInfo/publisher,volumeInfo/imageLinks/thumbnail,volumeInfo/infoLink)').then(data => data.json())
+  const nock = require('nock');
+  const books = {
+    items: [
+      {
+        title: "Blood Meridian",
+        author: "Cormac McCarthy",
+      },
+    ]
+  };
 
   const expectedActions = [
     {
       type: 'FETCH_BOOKS_REQUEST'
     },
     {
-      payload: bookResults.items,
+      payload: books.items,
       type: 'ADD_BOOKS'
     }
   ];
 
+  nock('https://www.googleapis.com')
+    .get('/books/v1/volumes?q=blood+meridian+intitle&orderBy=relevance&fields=kind,items(volumeInfo/title,volumeInfo/authors,volumeInfo/publisher,volumeInfo/imageLinks/thumbnail,volumeInfo/infoLink)')
+    .reply(200, books)
+
   const store = mockStore({ books: [] });
 
-  const queryParams = { title: "the windup girl", author: "" }
+  const queryParams = { title: "blood meridian", author: "" }
 
   return store.dispatch(fetchBooks(queryParams)).then(() => {
     expect(store.getActions()).toEqual(expectedActions)
