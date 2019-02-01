@@ -14,7 +14,8 @@ const mockStore = configureMockStore(middlewares);
 describe("<BooksList />", () => {
   it("receives a collection of books as props", () => {
     const store = mockStore({ books: [] });
-    return store.dispatch(fetchBooks(['the', 'windup', 'girl'])).then(() => {
+    const queryParams = { title: "the windup girl", author: "" }
+    return store.dispatch(fetchBooks(queryParams)).then(() => {
 
       const books = store.getActions()[1].payload;
       const wrapper = mount(<BooksList books={books} />);

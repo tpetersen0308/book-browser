@@ -70,7 +70,9 @@ test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async 
 
   const store = mockStore({ books: [] });
 
-  return store.dispatch(fetchBooks(['the', 'windup', 'girl'])).then(() => {
+  const queryParams = { title: "the windup girl", author: "" }
+
+  return store.dispatch(fetchBooks(queryParams)).then(() => {
     expect(store.getActions()).toEqual(expectedActions)
   })
 })
