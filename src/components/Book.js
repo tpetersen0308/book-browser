@@ -3,6 +3,11 @@ import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import './Book.css';
 
 class Book extends Component {
+
+  listAuthors = (authors) => {
+    return `Author${authors.length > 1 ? "s" : ""}: ${authors.length > 0 ? authors.join(',') : authors[0]}`
+  }
+
   render() {
     return (
       <Panel className="book">
@@ -13,7 +18,7 @@ class Book extends Component {
         </Panel.Heading>
         <ListGroup>
           <ListGroupItem className="image"><img src={this.props.imageLink} alt="Image Not Available" /></ListGroupItem>
-          <ListGroupItem className="authors">Author{this.props.authors.length > 1 ? "s" : ""}: {this.props.authors.length > 0 ? this.props.authors.join(", ") : "Author Not Available"}</ListGroupItem>
+          <ListGroupItem className="authors">{this.listAuthors(this.props.authors)}</ListGroupItem>
           <ListGroupItem className="publisher">Publisher: {this.props.publisher || "Publisher Not Available"}</ListGroupItem>
           {this.props.infoLink &&
             <ListGroupItem className="more-info"><a href={this.props.infoLink} target="_blank" rel="noopener noreferrer">More Info</a></ListGroupItem>
