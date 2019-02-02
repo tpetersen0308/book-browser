@@ -13,16 +13,14 @@ class Book extends Component {
       <Panel className="book">
         <Panel.Heading className="title">
           <strong>
-            {this.props.title || "Title Not Available"}
+            {this.props.title}
           </strong>
         </Panel.Heading>
         <ListGroup>
           <ListGroupItem className="image"><img src={this.props.imageLink} alt="Image Not Available" /></ListGroupItem>
           <ListGroupItem className="authors">{this.listAuthors(this.props.authors)}</ListGroupItem>
-          <ListGroupItem className="publisher">Publisher: {this.props.publisher || "Publisher Not Available"}</ListGroupItem>
-          {this.props.infoLink &&
-            <ListGroupItem className="more-info"><a href={this.props.infoLink} target="_blank" rel="noopener noreferrer">More Info</a></ListGroupItem>
-          }
+          <ListGroupItem className="publisher">Publisher: {this.props.publisher}</ListGroupItem>
+          <ListGroupItem className="more-info"><a href={this.props.infoLinkHref} target="_blank" rel="noopener noreferrer" disabled={!this.props.infoLinkHref}>{this.props.infoLinkText}</a></ListGroupItem>
         </ListGroup>
       </Panel>
     )
