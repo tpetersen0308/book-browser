@@ -25,8 +25,17 @@ class Search extends Component {
     });
   }
 
-  handleSearchButton = (event) => {
-    store.dispatch(fetchBooks({ title: this.state.titleSearchTerms, author: this.state.authorSearchTerms }));
+  checkInput = () => {
+    return this.state.authorSearchTerms.length > 0 || this.state.titleSearchTerms.length > 0
+
+  }
+
+  handleSearchButton = () => {
+    if (this.checkInput()) {
+      store.dispatch(fetchBooks({ title: this.state.titleSearchTerms, author: this.state.authorSearchTerms }));
+    } else {
+      alert("You have not entered any search terms.\nPlease enter a title and/or author and try again.");
+    }
   }
 
   render() {
