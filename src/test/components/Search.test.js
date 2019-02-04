@@ -10,7 +10,7 @@ describe("search input: title", () => {
     const wrapper = shallow(<Search />);
 
     wrapper.find("#title-search-input").simulate("change", {
-      target: { id: "search-input", value: "Persepolis Rising" }
+      target: { id: "title-search-input", value: "Persepolis Rising" }
     });
 
     expect(wrapper.state().titleSearchTerms).toEqual("Persepolis Rising");
@@ -22,9 +22,31 @@ describe("search input: author", () => {
     const wrapper = shallow(<Search />);
 
     wrapper.find("#author-search-input").simulate("change", {
-      target: { id: "search-input", value: "James S. A. Corey" }
+      target: { id: "author-search-input", value: "James S. A. Corey" }
     });
 
     expect(wrapper.state().authorSearchTerms).toEqual("James S. A. Corey");
+  })
+})
+
+describe("checkInput()", () => {
+  it("should return true if the search terms are not empty.", () => {
+    const wrapper = shallow(<Search />);
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'checkInput');
+
+    wrapper.find("#title-search-input").simulate("change", {
+      target: { id: "title-search-input", value: "Persepolis Rising" }
+    });
+
+    expect(instance.checkInput()).toBe(true);
+  })
+
+  it("should return false if the search terms are empty.", () => {
+    const wrapper = shallow(<Search />);
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'checkInput');
+
+    expect(instance.checkInput()).toBe(false);
   })
 })
