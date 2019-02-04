@@ -87,3 +87,20 @@ test('fetchBooks() creates ADD_BOOKS action when fetching books is done', async 
     expect(store.getActions()).toEqual(expectedActions)
   })
 })
+
+test('fetchBooks() handles server errors gracefully.', async () => {
+  const nock = require('nock');
+  window.alert = jest.fn();
+
+  nock('https://www.googleapis.com')
+    .get('/books/v1/volumes?q=blood+meridian+intitle&orderBy=relevance&fields=kind,items(volumeInfo/title,volumeInfo/authors,volumeInfo/publisher,volumeInfo/imageLinks/thumbnail,volumeInfo/infoLink)')
+    .reply(500)
+
+  const store = mockStore({ books: [] });
+
+  const queryParams = { title: "blood meridian", author: "" }
+
+  return store.dispatch(fetchBooks(queryParams)).then(() => {
+    expect(window.alert).toHaveBeenCalledWith("We're sorry: an error has occurred with Google Books.\nPlease try again later.")
+  })
+})
