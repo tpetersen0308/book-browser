@@ -15,7 +15,10 @@ export function fetchBooks(searchTerms) {
       .then(data => data.json())
       .then(json => {
         dispatch(addBooks(json.items))
-      }).catch(error => console.log(error))
+      }).catch(error => {
+        console.log(error);
+        alert("We're sorry: an error has occurred.\nPlease try again later.");
+      })
   }
 }
 
