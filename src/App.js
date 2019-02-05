@@ -15,7 +15,7 @@ class App extends Component {
           <br />
           <small>Use the search below to browse Google Books</small>
         </PageHeader>
-        <Search />
+        <Search fetching={this.props.fetching} />
         <br />
         <BooksList books={this.props.books} />
       </div>
@@ -25,7 +25,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    books: state.books
+    books: state.books,
+    fetching: state.fetching,
   }
 }
 
