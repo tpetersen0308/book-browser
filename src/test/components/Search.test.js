@@ -54,11 +54,25 @@ describe("checkInput()", () => {
 describe("handleSearchButton()", () => {
   it("should render an alert if the user tries to submit empty search params.", () => {
     const wrapper = shallow(<Search />);
-    const instance = wrapper.instance();
     window.alert = jest.fn()
 
     wrapper.find("#search-button").simulate("click");
 
     expect(window.alert).toHaveBeenCalledWith("You have not entered any search terms.\nPlease enter a title and/or author and try again.")
+  })
+})
+
+describe("setAsyncTimer()", () => {
+  jest.useFakeTimers();
+  it("should render an alert when the server takes at least 10 seconds to respond.", () => {
+    const wrapper = shallow(<Search fetching={true} />);
+    const instance = wrapper.instance();
+    window.alert = jest.fn()
+
+    instance.setAsyncTimer();
+
+    jest.advanceTimersByTime(10000);
+
+    expect(window.alert).toHaveBeenCalledWith("The server is taking some time to respond.\nClick OK to continue waiting, or try again later.");
   })
 })
