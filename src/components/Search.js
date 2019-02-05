@@ -26,7 +26,7 @@ class Search extends Component {
   }
 
   checkInput = () => {
-    return this.state.authorSearchTerms.length > 0 || this.state.titleSearchTerms.length > 0
+    return this.state.authorSearchTerms.replace(/\s/g, '').length > 0 || this.state.titleSearchTerms.replace(/\s/g, '').length > 0
 
   }
 
