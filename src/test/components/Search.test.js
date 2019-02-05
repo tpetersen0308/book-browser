@@ -60,6 +60,19 @@ describe("handleSearchButton()", () => {
 
     expect(window.alert).toHaveBeenCalledWith("You have not entered any search terms.\nPlease enter a title and/or author and try again.")
   })
+
+  it("should render an alert if the user enters whitespace and attempts to submit search", () => {
+    const wrapper = shallow(<Search />);
+    window.alert = jest.fn()
+
+    wrapper.find("#title-search-input").simulate("change", {
+      target: { id: "title-search-input", value: "   " }
+    });
+
+    wrapper.find("#search-button").simulate("click");
+
+    expect(window.alert).toHaveBeenCalledWith("You have not entered any search terms.\nPlease enter a title and/or author and try again.")
+  })
 })
 
 describe("setAsyncTimer()", () => {
