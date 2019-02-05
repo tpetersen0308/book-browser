@@ -14,16 +14,19 @@ describe(booksReducer, () => {
         }
       ], type: "ADD_BOOKS"
     })).toEqual(
-      [
-        {
-          title: "Blood Meridian",
-          author: "Cormac McCarthy",
-        },
-        {
-          title: "The Windup Girl",
-          author: "Paolo Bacigalupi",
-        }
-      ]
+      {
+        books: [
+          {
+            title: "Blood Meridian",
+            author: "Cormac McCarthy",
+          },
+          {
+            title: "The Windup Girl",
+            author: "Paolo Bacigalupi",
+          }
+        ],
+        fetching: false,
+      }
     )
   })
 })
