@@ -101,6 +101,6 @@ test('fetchBooks() handles server errors gracefully.', async () => {
   const queryParams = { title: "blood meridian", author: "" }
 
   return store.dispatch(fetchBooks(queryParams)).then(() => {
-    expect(window.alert).toHaveBeenCalledWith("We're sorry: an error has occurred with Google Books.\nPlease try again later.")
+    expect(window.alert).toHaveBeenCalledWith("We're sorry: an error has occurred.\nPlease try again later.")
   })
 })
